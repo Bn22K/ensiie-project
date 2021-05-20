@@ -1,39 +1,34 @@
 <?php
+session_start();
+use Rediite\Model\Hydrator\EventsHydrator;
+use Rediite\Model\Repository\EventsRepository;
+use Rediite\Date\Month;
+require '../src/Date/Month.php';
 
-require_once '../src/Bootstrap.php';
+include_once '../src/utils/autoloader.php';
 
-$userRepository = new \User\UserRepository(\Db\Connection::get());
-$users = $userRepository->fetchAll();
+$dbfactory = new \Rediite\Model\Factory\dbFactory();
+$dbAdapter = $dbfactory->createService();
+
+$data = [];
+
+include_once '../src/View/template.php';
+if (isset($_SESSION['user'])) {
+    $eventsHydrator = new EventsHydrator();
+    $eventsRepository = new EventsRepository($dbAdapter, $eventsHydrator);
+
+    if (isset($_POST['action']) && $_POST['action'] === 'add') {
+        if (isset($_POST['libelle']) && isset($_POST['desc']) && isset($_POST['start']) && isset($_POST['userid'])) {
+            $eventsRepository->insert($_POST['libelle'], $_POST['desc'], new \DateTime($_POST['start']), intval($_POST['userid']));
+        }
+    }
+    $data['month'] = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+    $data['events'] = $eventsRepository;
+    $data['user_id'] = $_SESSION['user_id'];
+
+    loadView('home', $data);
+} else {
+    loadView('login', $data);
+}
+
 ?>
-
-<html>
-<head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
-</head>
-<body>
-
-<div class="container">
-    <h3><?php echo 'Hello world from Docker! php' . PHP_VERSION; ?></h3>
-
-    <table class="table table-bordered table-hover table-striped">
-        <thead style="font-weight: bold">
-            <td>#</td>
-            <td>Firstname</td>
-            <td>Lastname</td>
-            <td>Age</td>
-        </thead>
-        <?php /** @var \User\User $user */
-        foreach ($users as $user) : ?>
-            <tr>
-                <td><?php echo $user->getId() ?></td>
-                <td><?php echo $user->getFirstname() ?></td>
-                <td><?php echo $user->getLastname() ?></td>
-                <td><?php echo $user->getAge() ?> years</td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
-</body>
-</html>

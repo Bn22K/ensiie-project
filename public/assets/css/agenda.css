@@ -1,0 +1,89 @@
+.container-agenda {
+}
+
+.add-event,
+.list-events {
+    margin: auto;
+    text-align: center;
+}
+
+.list {
+    border-collapse: collapse;
+    font-family: sans-serif;
+    font-size: 12px;
+    background-color: #fff;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.list tbody tr:nth-child(odd) {
+    background-color: rgba(100, 150, 250, 0.05);
+}
+
+.list td,
+th {
+    padding: 10px;
+}
+
+.header-agenda {
+    text-align: center;
+    width: 100%;
+}
+.month-button {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.previousButton,
+.nextButton {
+    width: 100%;
+}
+.previousButton button,
+.nextButton button {
+    width: 100%;
+    padding: 5px;
+    background-color: #2ecc71;
+    color: #ecf0f1;
+    font-size: xx-large;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.previousButton:hover button,
+.nextButton:hover button {
+    background-color: #27ae60;
+}
+.agenda {
+    width: 100%;
+    height: 70vh;
+}
+
+.agenda td {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 8px;
+    vertical-align: top;
+    width: 15vw;
+    height: 15vh;
+}
+
+.agenda .day {
+    font-size: 1.3em;
+}
+
+.agenda .numday {
+    font-weight: bold;
+    color: #000;
+    font-size: 1.2em;
+}
+
+.agenda .othermonth .numday {
+    opacity: 0.3;
+}
+
+.remove {
+    width: 100%;
+    height: 100%;
+    background-color: #e74c3c;
+    color: #fff;
+}
