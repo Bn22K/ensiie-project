@@ -61,8 +61,10 @@ $eventsUser = $eventsRepository->findEventsUsers($data['user_id']);
                     <?php 
                     foreach ($eventsForDay as $event) { ?>
                     <div class="event">
+                        <div class="id<?= $event->getId(); ?>">
                         <?= (new DateTime($event->getStart()))->format('H:i'); ?> -
                         <?= $event->getLibelle(); ?>
+                        </div>
                     </div>
                     <?php } ?>
                 </td>

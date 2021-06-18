@@ -6,6 +6,9 @@ for (let index = 0; index < button.length; index++) {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 event.target.parentElement.parentElement.remove();
+                let element = document.querySelector('.id' + event.target.parentElement.parentElement.childNodes[1].textContent)
+                console.log(element)
+                element.remove();
             }
         };
 
